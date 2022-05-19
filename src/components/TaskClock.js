@@ -1,7 +1,14 @@
 import styled from "styled-components"
 
 import { useTimer } from "reactjs-countdown-hook"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+
+import {
+  CircularProgressbar,
+  CircularProgressbarWithChildren,
+  buildStyles,
+} from "react-circular-progressbar"
+import "react-circular-progressbar/dist/styles.css"
 
 // import { intervalToDuration, isBefore } from "date-fns"
 
@@ -18,93 +25,32 @@ const TaskClock = (props) => {
     reset,
   } = useTimer(props.startTime, handleTimerFinish)
 
-  const radius = 300
-  const timeLeft = counter
-  const totalTime = props.startTime
+  const [percentage, setPercentage] = useState(100)
+
+  const radius = 500
 
   function handleTimerFinish() {
     alert("times up!")
   }
 
   useEffect(() => {
-    const canvas = document.querySelector("canvas")
-    const ctx = canvas.getContext("2d")
-
-    ctx.beginPath()
-    ctx.arc(0, 0, radius, 0, 2.0 * (timeLeft / totalTime) * Math.pi)
-  }, [timeLeft, totalTime])
-
-  // const getTimeRemaining = (t) => {
-  //   const total = Date.parse(t) - Date.parse(new Date())
-  //   const seconds = Math.floor((total / 1000) % 60)
-  //   const minutes = Math.floor((total / 1000 / 60) % 60)
-  //   const hours = Math.floor(((total / 1000) * 60 * 60) % 24)
-  //   return {
-  //     total,
-  //     hours,
-  //     minutes,
-  //     seconds,
-  //   }
-  // }
-
-  // const startTimer = (t) => {
-  //   let { total, hours, minutes, seconds } = getTimeRemaining(t)
-  //   if (total >= 0 && !isPaused) {
-  //     // update the timer
-  //     // check if less than 10 then we need to
-  //     // add '0' at the begining of the variable
-  //     setDisplayTime(
-  //       (hours > 9 ? hours : "0" + hours) +
-  //         ":" +
-  //         (minutes > 9 ? minutes : "0" + minutes) +
-  //         ":" +
-  //         (seconds > 9 ? seconds : "0" + seconds)
-  //     )
-  //   } else {
-
-  //   }
-  // }
-
-  // const clearTimer = (t) => {
-  //   // If you adjust it you should also need to
-  //   // adjust the Endtime formula we are about
-  //   // to code next
-  //   setDisplayTime("00:00:00")
-
-  //   // If you try to remove this line the
-  //   // updating of timer Variable will be
-  //   // after 1000ms or 1sec
-  //   if (Ref.current) clearInterval(Ref.current)
-  //   const id = setInterval(() => {
-  //     startTimer(t)
-  //   }, 1000)
-  //   Ref.current = id
-  // }
-
-  // const getDeadTime = () => {
-  //   let deadline = new Date()
-
-  //   // This is where you need to adjust if
-  //   // you entend to add more time
-  //   deadline.setSeconds(deadline.getSeconds() + 600)
-  //   return deadline
-  // }
-
-  // useEffect(() => {
-  //   clearTimer(getDeadTime())
-  // }, [])
-
-  // const onClickReset = () => {
-  //   clearTimer(getDeadTime())
-  // }
+    setPercentage(100 * (counter / props.startTime))
+  }, [counter, props.startTime, percentage])
 
   return (
     <div>
       <Face id="c" rad={radius.toString() + "px"}>
+        <CircularProgressbar
+          value={percentage}
+          strokeWidth={30}
+          styles={buildStyles({
+            strokeLinecap: "butt",
+          })}
+        ></CircularProgressbar>
         <div>{`${minutes} : ${seconds}`}</div>
         <button onClick={() => (isActive ? pause() : resume())}>Pause</button>
       </Face>
-      <canvas id="face" width={"300px"} height={"400px"}></canvas>
+      {/* <canvas id="face" width={"300px"} height={"400px"}></canvas> */}
     </div>
   )
 }
