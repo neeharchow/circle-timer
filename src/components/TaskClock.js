@@ -1,33 +1,29 @@
 import styled from "styled-components"
-
 import { useTimer } from "reactjs-countdown-hook"
-import { useEffect, useState } from "react"
-
+import React, { useEffect, useState } from "react"
 import {
-  CircularProgressbar,
-  CircularProgressbarWithChildren,
   buildStyles,
+  CircularProgressbarWithChildren,
 } from "react-circular-progressbar"
 import "react-circular-progressbar/dist/styles.css"
 
-// import { intervalToDuration, isBefore } from "date-fns"
+import { Pause } from "@material-ui/icons"
+import { PlayArrowRounded } from "@material-ui/icons"
 
 const TaskClock = (props) => {
-  const {
-    isActive,
-    counter,
-    seconds,
-    minutes,
-    hours,
-    days,
-    pause,
-    resume,
-    reset,
-  } = useTimer(props.startTime, handleTimerFinish)
+  const { isActive, counter, seconds, minutes, hours, pause, resume } =
+    useTimer(props.startTime, handleTimerFinish)
 
+  var radius = parseFloat(props.radius)
+  var center = parseFloat(props.center) - radius
   const [percentage, setPercentage] = useState(100)
 
-  const radius = 500
+  function calculatePosition() {
+    const theta = (props.index / props.count) * 2 * Math.PI
+    var x = 400 + center * Math.cos(theta) - radius
+    var y = 400 - center * Math.sin(theta) - radius
+    return [x, y]
+  }
 
   function handleTimerFinish() {
     alert("times up!")
@@ -37,21 +33,45 @@ const TaskClock = (props) => {
     setPercentage(100 * (counter / props.startTime))
   }, [counter, props.startTime, percentage])
 
+  const [xPosition, yPosition] = calculatePosition(radius)
+
   return (
-    <div>
-      <Face id="c" rad={radius.toString() + "px"}>
-        <CircularProgressbar
-          value={percentage}
-          strokeWidth={30}
-          styles={buildStyles({
-            strokeLinecap: "butt",
-          })}
-        ></CircularProgressbar>
-        <div>{`${minutes} : ${seconds}`}</div>
-        <button onClick={() => (isActive ? pause() : resume())}>Pause</button>
-      </Face>
-      {/* <canvas id="face" width={"300px"} height={"400px"}></canvas> */}
-    </div>
+    <Face
+      id={props.index}
+      circ={(radius * 2).toString() + "px"}
+      x={xPosition.toString() + "px"}
+      y={yPosition.toString() + "px"}
+      onClick={isActive ? () => pause() : () => resume()}
+    >
+      <CircularProgressbarWithChildren
+        value={percentage}
+        strokeWidth={15}
+        styles={buildStyles({
+          strokeLinecap: "butt",
+          trailColor: "white",
+          pathColor: `${props.color}`,
+          textSize: "12",
+          textColor: "black",
+          boxShadow: "1px 1px 1px 1px gray",
+        })}
+      >
+        {
+          <div
+            style={{
+              fontSize: 20,
+              marginTop: -5,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <strong>{`${hours}:${minutes}:${seconds}`}</strong>
+            {isActive ? <Pause /> : <PlayArrowRounded />}
+          </div>
+        }
+      </CircularProgressbarWithChildren>
+    </Face>
   )
 }
 
@@ -59,21 +79,13 @@ export default TaskClock
 
 const Face = styled.div`
   display: flex;
-  width: ${(props) => props.rad};
-  height: ${(props) => props.rad};
-  border-radius: ${(props) => props.rad};
-  // background-color: green;
-  border-color: green;
-  border-style: solid;
+  width: ${(props) => props.circ};
+  height: ${(props) => props.circ};
+  position: absolute;
+  left: ${(props) => props.x};
+  top: ${(props) => props.y};
+  transform: rotateZ(90deg);
+  cursor: pointer;
 
-  margin: auto;
+  onhover: ;
 `
-
-// Two ways to calculate time:
-// (1)
-//  - get interval time
-//  - set future time to now + interval time
-//  - continously subtract so that future time - interval time is set to the timer.
-
-// (2)
-//  - update a timer function every second
