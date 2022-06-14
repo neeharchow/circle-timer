@@ -15,13 +15,13 @@ const TaskClock = (props) => {
     useTimer(props.startTime, handleTimerFinish)
 
   var radius = parseFloat(props.radius)
-  var center = parseFloat(props.center) - radius
+  var relCenter = parseFloat(props.center) - radius
   const [percentage, setPercentage] = useState(100)
 
   function calculatePosition() {
     const theta = (props.index / props.count) * 2 * Math.PI
-    var x = 400 + center * Math.cos(theta) - radius
-    var y = 400 - center * Math.sin(theta) - radius
+    var x = props.center + relCenter * Math.cos(theta) - radius
+    var y = props.center - relCenter * Math.sin(theta) - radius
     return [x, y]
   }
 
@@ -30,8 +30,20 @@ const TaskClock = (props) => {
   }
 
   useEffect(() => {
-    setPercentage(100 * (counter / props.startTime))
-  }, [counter, props.startTime, percentage])
+    if (props.activeTimer !== props.index) {
+      pause()
+    } else {
+      setPercentage(100 * (counter / props.startTime))
+    }
+  }, [
+    percentage,
+    counter,
+    props.startTime,
+    props.activeTimer,
+    props.index,
+    pause,
+    resume,
+  ])
 
   const [xPosition, yPosition] = calculatePosition(radius)
 
@@ -41,7 +53,14 @@ const TaskClock = (props) => {
       circ={(radius * 2).toString() + "px"}
       x={xPosition.toString() + "px"}
       y={yPosition.toString() + "px"}
-      onClick={isActive ? () => pause() : () => resume()}
+      onClick={
+        isActive
+          ? () => pause()
+          : () => {
+              resume()
+              props.setActiveTimer(props.index)
+            }
+      }
     >
       <CircularProgressbarWithChildren
         value={percentage}
