@@ -5,29 +5,45 @@ import { useState } from "react"
 
 function App() {
   const colors = [
-    "rgb(15, 30, 90,  .8)",
-    "rgb(15, 50, 90,  .8)",
-    "rgb(15, 70, 90,  .8)",
-    "rgb(15, 90, 90,  .8)",
-    "rgb(15, 110, 90, .8)",
-    "rgb(15, 130, 90, .8)",
-    "rgb(15, 150, 90, .8)",
-    "rgb(15, 170, 90, .8)",
-    // "rgb(186, 166, 165, 1)",
-    // "rgb(173, 148, 158, 1)",
-    // "rgb(151, 133, 155, 1)",
-    // "rgb(118, 122, 151, 1)",
-    // "rgb(77, 113, 140, 1)",
-    // "rgb(28, 103, 119, 1)",
-    // "rgb(28, 103, 140, 1)",
-    // "rgb(28, 103, 170, 1)",
+    "rgb(15, 30, 90,  .55)",
+    "rgb(15, 50, 90,  .55)",
+    "rgb(15, 70, 90,  .55)",
+    "rgb(15, 90, 90,  .55)",
+    "rgb(15, 110, 90, .55)",
+    "rgb(15, 130, 90, .55)",
+    "rgb(15, 150, 90, .55)",
+    "rgb(15, 170, 90, .55)",
+    "rgb(15, 190, 90, .55)",
+    "rgb(15, 210, 90, .55)",
+    "rgb(15, 230, 90, .55)",
+    "rgb(15, 250, 90, .55)",
+    "rgb(35, 250, 90, .55)",
+    "rgb(55, 250, 90, .55)",
   ]
 
-  const startTimes = [5700, 9453, 4534, 3453, 456, 23, 76, 135]
+  const taskData = [
+    {
+      taskTitle: "Work",
+      startTime: 28800,
+    },
+    {
+      taskTitle: "Exercise",
+      startTime: 1800,
+    },
+    {
+      taskTitle: "Read",
+      startTime: 1800,
+    },
+    {
+      taskTitle: "Meditate",
+      startTime: 600,
+    },
+  ]
+
   const [activeTimer, setActiveTimer] = useState(1)
 
-  const radius = 80
-  const center = 400
+  const radius = 120
+  const center = 390
   // todo: create a function that can calculate the radii of the circles and pass it in
 
   return (
@@ -36,17 +52,18 @@ function App() {
         modHeight={(center * 2).toString() + "px"}
         modWidth={(center * 2).toString() + "px"}
       >
-        {startTimes.map((t, index) => {
+        {taskData.map((t, index) => {
           return (
             <TaskClock
-              startTime={t}
+              startTime={t.startTime}
               index={index + 1}
-              count={startTimes.length}
+              count={taskData.length}
               radius={radius}
               center={center}
               color={colors[index]}
               activeTimer={activeTimer}
               setActiveTimer={setActiveTimer}
+              taskTitle={t.taskTitle}
             ></TaskClock>
           )
         })}

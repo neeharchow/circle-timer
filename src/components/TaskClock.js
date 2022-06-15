@@ -11,6 +11,34 @@ import { Pause } from "@material-ui/icons"
 import { PlayArrowRounded } from "@material-ui/icons"
 
 const TaskClock = (props) => {
+  function getInitialTimes(startTime) {
+    let iHours = Math.floor(startTime / 3600)
+    let iMinutes = Math.floor((startTime - iHours * 3600) / 60)
+    let iSeconds = startTime - (3600 * iHours + 60 * iMinutes)
+
+    if (iHours < 10) {
+      iHours = "0" + iHours.toString()
+    } else {
+      iHours.toString()
+    }
+    if (iMinutes < 10) {
+      iMinutes = "0" + iMinutes.toString()
+    } else {
+      iMinutes.toString()
+    }
+    if (iSeconds < 10) {
+      iSeconds = "0" + iSeconds.toString()
+    } else {
+      iSeconds.toString()
+    }
+
+    return [iSeconds, iMinutes, iHours]
+  }
+
+  const [initalSeconds, initialMinutes, initialHours] = getInitialTimes(
+    props.startTime
+  )
+
   const { isActive, counter, seconds, minutes, hours, pause, resume } =
     useTimer(props.startTime, handleTimerFinish)
 
@@ -36,11 +64,11 @@ const TaskClock = (props) => {
       setPercentage(100 * (counter / props.startTime))
     }
   }, [
-    percentage,
-    counter,
     props.startTime,
     props.activeTimer,
     props.index,
+    percentage,
+    counter,
     pause,
     resume,
   ])
@@ -64,7 +92,7 @@ const TaskClock = (props) => {
     >
       <CircularProgressbarWithChildren
         value={percentage}
-        strokeWidth={15}
+        strokeWidth={10}
         styles={buildStyles({
           strokeLinecap: "butt",
           trailColor: "white",
@@ -85,7 +113,10 @@ const TaskClock = (props) => {
               alignItems: "center",
             }}
           >
-            <strong>{`${hours}:${minutes}:${seconds}`}</strong>
+            <strong>{props.taskTitle}</strong>
+            <strong>{`${hours ? hours : initialHours}:${
+              minutes ? minutes : initialMinutes
+            }:${seconds ? seconds : initalSeconds}`}</strong>
             {isActive ? <Pause /> : <PlayArrowRounded />}
           </div>
         }
