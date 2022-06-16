@@ -2,6 +2,7 @@ import styled from "styled-components"
 import TaskClock from "./components/TaskClock"
 
 import { useState } from "react"
+import AddClock from "./components/AddClock"
 
 function App() {
   const colors = [
@@ -21,7 +22,7 @@ function App() {
     "rgb(55, 250, 90, .55)",
   ]
 
-  const taskData = [
+  const [taskData, setTaskData] = useState([
     {
       taskTitle: "Work",
       startTime: 28800,
@@ -38,12 +39,20 @@ function App() {
       taskTitle: "Meditate",
       startTime: 600,
     },
-  ]
+    {
+      taskTitle: "Work",
+      startTime: 28800,
+    },
+    {
+      taskTitle: "Exercise",
+      startTime: 1800,
+    },
+  ])
 
   const [activeTimer, setActiveTimer] = useState(1)
 
   const radius = 120
-  const center = 390
+  const center = 400
   // todo: create a function that can calculate the radii of the circles and pass it in
 
   return (
@@ -52,6 +61,11 @@ function App() {
         modHeight={(center * 2).toString() + "px"}
         modWidth={(center * 2).toString() + "px"}
       >
+        <AddClock
+          setTaskData={setTaskData}
+          timerRadius={radius}
+          boxCenter={center}
+        />
         {taskData.map((t, index) => {
           return (
             <TaskClock

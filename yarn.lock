@@ -1679,6 +1679,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fseehawer/react-circular-slider@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "@fseehawer/react-circular-slider@npm:2.5.0"
+  peerDependencies:
+    global: ^4.4.0
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 5dff2c475555138052cd734e0f9f78c67920419f6a859a1e0ad2391255bfa3676e9fee4ea3c8687e19728fc6b337d466906ad4393f71b1c1cba93160d3310479
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.1.3":
   version: 1.1.3
   resolution: "@gar/promisify@npm:1.1.3"
@@ -11903,6 +11914,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "timer-app@workspace:."
   dependencies:
+    "@fseehawer/react-circular-slider": ^2.5.0
     "@material-ui/core": ^4.12.4
     "@material-ui/icons": ^4.11.3
     "@testing-library/jest-dom": ^5.14.1

@@ -136,6 +136,4 @@ const Face = styled.div`
   top: ${(props) => props.y};
   transform: rotateZ(90deg);
   cursor: pointer;
-
-  onhover: ;
 `
