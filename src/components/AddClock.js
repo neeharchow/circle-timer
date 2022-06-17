@@ -19,10 +19,10 @@ function AddClock({ setTaskData, timerRadius, boxCenter }) {
     sliders: [
       {
         radius: 160,
-        min: 60,
+        min: 0,
         max: 60,
         step: 1,
-        initialValue: 50,
+        initialValue: 10,
         color: "#0984e3",
         displayName: "Seconds",
       },
@@ -30,7 +30,7 @@ function AddClock({ setTaskData, timerRadius, boxCenter }) {
         radius: 100,
         min: 0,
         max: 60,
-        step: 60,
+        step: 1,
         initialValue: 10,
         color: "#fdcb6e",
         displayName: "Minutes",
@@ -38,7 +38,7 @@ function AddClock({ setTaskData, timerRadius, boxCenter }) {
       {
         radius: 40,
         min: 0,
-        max: 24,
+        max: 6,
         step: 1,
         initialValue: 1,
         color: "#d63031",
