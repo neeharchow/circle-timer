@@ -7,10 +7,30 @@ import {
 } from "react-circular-progressbar"
 import "react-circular-progressbar/dist/styles.css"
 import CircularSlider from "@fseehawer/react-circular-slider"
+import CircularSliderRange from "../extraComponents/CircularSliderRange"
 
 function AddClock({ setTaskData, timerRadius, boxCenter }) {
   const size = 2 * boxCenter - 4 * timerRadius - 20
-  console.log(size)
+
+  console.log(document.querySelector("#drawSlider"))
+
+  const exampleOptions = {
+    DOMselector: "#drawSlider",
+    sliders: [
+      {
+        radius: 10,
+        min: 2,
+        max: 9,
+        step: 10,
+        initialValue: 0,
+        color: "rgb(190, 221, 156, .6)",
+        displayName: "Example Name",
+      },
+    ],
+  }
+
+  const newSlider = new CircularSliderRange(exampleOptions)
+  newSlider.draw()
 
   return (
     <Clock modHeight={size.toString() + "px"} modWidth={size.toString() + "px"}>

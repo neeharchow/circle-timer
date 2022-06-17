@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import TaskClock from "./components/TaskClock"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import AddClock from "./components/AddClock"
 
 function App() {
@@ -57,6 +57,7 @@ function App() {
 
   return (
     <AppContainer>
+      <div id="drawSlider"></div>
       <CircleContainer
         modHeight={(center * 2).toString() + "px"}
         modWidth={(center * 2).toString() + "px"}
@@ -66,7 +67,7 @@ function App() {
           timerRadius={radius}
           boxCenter={center}
         />
-        {taskData.map((t, index) => {
+        {/* {taskData.map((t, index) => {
           return (
             <TaskClock
               startTime={t.startTime}
@@ -80,7 +81,7 @@ function App() {
               taskTitle={t.taskTitle}
             ></TaskClock>
           )
-        })}
+        })} */}
       </CircleContainer>
     </AppContainer>
   )
