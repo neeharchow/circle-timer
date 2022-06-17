@@ -7,35 +7,54 @@ import {
 } from "react-circular-progressbar"
 import "react-circular-progressbar/dist/styles.css"
 import CircularSlider from "@fseehawer/react-circular-slider"
+import CircularSliderRange from "../extraComponents/CircularSliderRange"
 
 function AddClock({ setTaskData, timerRadius, boxCenter }) {
   const size = 2 * boxCenter - 4 * timerRadius - 20
-  console.log(size)
+
+  console.log(document.querySelector("#drawSlider"))
+
+  const exampleOptions = {
+    DOMselector: "#drawSlider",
+    sliders: [
+      {
+        radius: 160,
+        min: 60,
+        max: 60,
+        step: 1,
+        initialValue: 50,
+        color: "#0984e3",
+        displayName: "Seconds",
+      },
+      {
+        radius: 100,
+        min: 0,
+        max: 60,
+        step: 60,
+        initialValue: 10,
+        color: "#fdcb6e",
+        displayName: "Minutes",
+      },
+      {
+        radius: 40,
+        min: 0,
+        max: 24,
+        step: 1,
+        initialValue: 1,
+        color: "#d63031",
+        displayName: "Hours",
+      },
+    ],
+  }
+
+  const newSlider = new CircularSliderRange(exampleOptions)
+  newSlider.draw()
 
   return (
-    <Clock modHeight={size.toString() + "px"} modWidth={size.toString() + "px"}>
-      <CircularSlider
-        hideKnob
-        width={size}
-        progressLineCap={"flat"}
-        // trackColor={"rgb(35, 180, 10, .55)"}
-        // knobDraggable={true}
-        // label={""}
-      ></CircularSlider>
-      {/* <CircularProgressbarWithChildren
-        strokeWidth={5}
-        styles={buildStyles({
-          strokeLinecap: "butt",
-          trailColor: "white",
-          pathColor: "rgb(150, 80, 10,  .55)",
-          textSize: "12",
-          textColor: "black",
-          boxShadow: "1px 1px 1px 1px gray",
-        })}
-      >
-        <div>Add Clock</div>
-      </CircularProgressbarWithChildren> */}
-    </Clock>
+    <Clock
+      modHeight={size.toString() + "px"}
+      modWidth={size.toString() + "px"}
+    ></Clock>
   )
 }
 
