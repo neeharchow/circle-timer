@@ -18,13 +18,31 @@ function AddClock({ setTaskData, timerRadius, boxCenter }) {
     DOMselector: "#drawSlider",
     sliders: [
       {
-        radius: 10,
-        min: 2,
-        max: 9,
-        step: 10,
-        initialValue: 0,
-        color: "rgb(190, 221, 156, .6)",
-        displayName: "Example Name",
+        radius: 160,
+        min: 60,
+        max: 60,
+        step: 1,
+        initialValue: 50,
+        color: "#0984e3",
+        displayName: "Seconds",
+      },
+      {
+        radius: 100,
+        min: 0,
+        max: 60,
+        step: 60,
+        initialValue: 10,
+        color: "#fdcb6e",
+        displayName: "Minutes",
+      },
+      {
+        radius: 40,
+        min: 0,
+        max: 24,
+        step: 1,
+        initialValue: 1,
+        color: "#d63031",
+        displayName: "Hours",
       },
     ],
   }
@@ -33,29 +51,10 @@ function AddClock({ setTaskData, timerRadius, boxCenter }) {
   newSlider.draw()
 
   return (
-    <Clock modHeight={size.toString() + "px"} modWidth={size.toString() + "px"}>
-      <CircularSlider
-        hideKnob
-        width={size}
-        progressLineCap={"flat"}
-        // trackColor={"rgb(35, 180, 10, .55)"}
-        // knobDraggable={true}
-        // label={""}
-      ></CircularSlider>
-      {/* <CircularProgressbarWithChildren
-        strokeWidth={5}
-        styles={buildStyles({
-          strokeLinecap: "butt",
-          trailColor: "white",
-          pathColor: "rgb(150, 80, 10,  .55)",
-          textSize: "12",
-          textColor: "black",
-          boxShadow: "1px 1px 1px 1px gray",
-        })}
-      >
-        <div>Add Clock</div>
-      </CircularProgressbarWithChildren> */}
-    </Clock>
+    <Clock
+      modHeight={size.toString() + "px"}
+      modWidth={size.toString() + "px"}
+    ></Clock>
   )
 }
 
