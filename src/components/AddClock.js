@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { useTimer } from "reactjs-countdown-hook"
 import React, { useEffect, useState } from "react"
 import {
   buildStyles,
@@ -10,31 +9,44 @@ import CircularSlider from "@fseehawer/react-circular-slider"
 
 function AddClock({ setTaskData, timerRadius, boxCenter }) {
   const size = 2 * boxCenter - 4 * timerRadius - 20
-  console.log(size)
 
   return (
     <Clock modHeight={size.toString() + "px"} modWidth={size.toString() + "px"}>
-      <CircularSlider
-        hideKnob
-        width={size}
-        progressLineCap={"flat"}
-        // trackColor={"rgb(35, 180, 10, .55)"}
-        // knobDraggable={true}
-        // label={""}
-      ></CircularSlider>
-      {/* <CircularProgressbarWithChildren
-        strokeWidth={5}
+      <CircularProgressbarWithChildren
+        strokeWidth={8}
         styles={buildStyles({
           strokeLinecap: "butt",
           trailColor: "white",
-          pathColor: "rgb(150, 80, 10,  .55)",
+          pathColor: "#2C699A",
           textSize: "12",
           textColor: "black",
           boxShadow: "1px 1px 1px 1px gray",
         })}
       >
-        <div>Add Clock</div>
-      </CircularProgressbarWithChildren> */}
+        <div style={{ width: "84%" }}>
+          <CircularProgressbarWithChildren
+            strokeWidth={8}
+            value={70}
+            styles={buildStyles({
+              trailColor: "transparent",
+              pathColor: "#0DB39E",
+            })}
+          >
+            <div style={{ width: "84%" }}>
+              <CircularProgressbarWithChildren
+                strokeWidth={8}
+                value={70}
+                styles={buildStyles({
+                  trailColor: "transparent",
+                  pathColor: "#F1C453",
+                })}
+              >
+                <div>Add Clock</div>
+              </CircularProgressbarWithChildren>
+            </div>
+          </CircularProgressbarWithChildren>
+        </div>
+      </CircularProgressbarWithChildren>
     </Clock>
   )
 }
