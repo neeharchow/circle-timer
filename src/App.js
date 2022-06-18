@@ -37,7 +37,7 @@ function App() {
     },
     {
       taskTitle: "Meditate",
-      startTime: 600,
+      startTime: 598,
     },
     {
       taskTitle: "Work",
