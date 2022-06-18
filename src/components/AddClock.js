@@ -6,7 +6,7 @@ import {
 } from "react-circular-progressbar"
 import "react-circular-progressbar/dist/styles.css"
 import CircularSlider from "@fseehawer/react-circular-slider"
-import TextField from "@mui/material/TextField"
+// import TextField from "@mui/material/TextField"
 
 function AddClock({ setTaskData, timerRadius, boxCenter }) {
   const size = 2 * boxCenter - 4 * timerRadius - 20
@@ -45,7 +45,7 @@ function AddClock({ setTaskData, timerRadius, boxCenter }) {
                 })}
               >
                 <div>
-                  <TextField></TextField>
+                  {/* <TextField></TextField> */}
                   <input type="number"></input>
                   <input type="number"></input>
                 </div>
