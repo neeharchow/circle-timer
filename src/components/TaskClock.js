@@ -91,8 +91,8 @@ const TaskClock = (props) => {
       }
     >
       <CircularProgressbarWithChildren
-        value={percentage}
-        strokeWidth={10}
+        value={seconds ? 100 * (seconds / 60) : 100 * (initalSeconds / 60)}
+        strokeWidth={7}
         styles={buildStyles({
           strokeLinecap: "butt",
           trailColor: "white",
@@ -102,24 +102,46 @@ const TaskClock = (props) => {
           boxShadow: "1px 1px 1px 1px gray",
         })}
       >
-        {
-          <div
-            style={{
-              fontSize: 20,
-              marginTop: -5,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+        <div style={{ width: "84%" }}>
+          <CircularProgressbarWithChildren
+            strokeWidth={7}
+            value={minutes ? 100 * (minutes / 60) : 100 * (initialMinutes / 60)}
+            styles={buildStyles({
+              strokeLinecap: "butt",
+              trailColor: "transparent",
+              pathColor: "#0DB39E",
+            })}
           >
-            <strong>{props.taskTitle}</strong>
-            <strong>{`${hours ? hours : initialHours}:${
-              minutes ? minutes : initialMinutes
-            }:${seconds ? seconds : initalSeconds}`}</strong>
-            {isActive ? <Pause /> : <PlayArrowRounded />}
-          </div>
-        }
+            <div style={{ width: "84%" }}>
+              <CircularProgressbarWithChildren
+                strokeWidth={7}
+                value={hours ? 100 * (hours / 24) : 100 * (initialHours / 24)}
+                styles={buildStyles({
+                  trailColor: "transparent",
+                  strokeLinecap: "butt",
+                  pathColor: "#F1C453",
+                })}
+              >
+                <div
+                  style={{
+                    fontSize: 20,
+                    marginTop: -5,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <strong>{props.taskTitle}</strong>
+                  <strong>{`${hours ? hours : initialHours}:${
+                    minutes ? minutes : initialMinutes
+                  }:${seconds ? seconds : initalSeconds}`}</strong>
+                  {isActive ? <Pause /> : <PlayArrowRounded />}
+                </div>
+              </CircularProgressbarWithChildren>
+            </div>
+          </CircularProgressbarWithChildren>
+        </div>
       </CircularProgressbarWithChildren>
     </Face>
   )

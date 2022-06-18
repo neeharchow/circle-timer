@@ -6,6 +6,7 @@ import {
 } from "react-circular-progressbar"
 import "react-circular-progressbar/dist/styles.css"
 import CircularSlider from "@fseehawer/react-circular-slider"
+import TextField from "@mui/material/TextField"
 
 function AddClock({ setTaskData, timerRadius, boxCenter }) {
   const size = 2 * boxCenter - 4 * timerRadius - 20
@@ -13,7 +14,7 @@ function AddClock({ setTaskData, timerRadius, boxCenter }) {
   return (
     <Clock modHeight={size.toString() + "px"} modWidth={size.toString() + "px"}>
       <CircularProgressbarWithChildren
-        strokeWidth={8}
+        strokeWidth={7}
         styles={buildStyles({
           strokeLinecap: "butt",
           trailColor: "white",
@@ -25,23 +26,29 @@ function AddClock({ setTaskData, timerRadius, boxCenter }) {
       >
         <div style={{ width: "84%" }}>
           <CircularProgressbarWithChildren
-            strokeWidth={8}
+            strokeWidth={7}
             value={70}
             styles={buildStyles({
+              strokeLinecap: "butt",
               trailColor: "transparent",
               pathColor: "#0DB39E",
             })}
           >
             <div style={{ width: "84%" }}>
               <CircularProgressbarWithChildren
-                strokeWidth={8}
+                strokeWidth={7}
                 value={70}
                 styles={buildStyles({
+                  strokeLinecap: "butt",
                   trailColor: "transparent",
                   pathColor: "#F1C453",
                 })}
               >
-                <div>Add Clock</div>
+                <div>
+                  <TextField></TextField>
+                  <input type="number"></input>
+                  <input type="number"></input>
+                </div>
               </CircularProgressbarWithChildren>
             </div>
           </CircularProgressbarWithChildren>
